@@ -7,11 +7,20 @@ const ElixirFilter = ({ filters, onChange, onReset }) => {
 
     const fields = [
         { name: "name", placeholder: "Name" },
-        { name: "difficulty", placeholder: "Difficulty" },
         { name: "ingredient", placeholder: "Ingredient" },
         { name: "inventorFullName", placeholder: "Inventor" },
         { name: "manufacturer", placeholder: "Manufacturer" },
     ];
+
+    const difficulty = [
+        { value: "", label: "Select Difficulty" },
+        { value: "Unknown", label: "Unknown" },
+        { value: "Advanced", label: "Advanced" },
+        { value: "Moderate", label: "Moderate" },
+        { value: "Beginner", label: "Beginner" },
+        { value: "OrdinaryWizardingLevel", label: "OrdinaryWizardingLevel" },
+        { value: "OneOfAKind", label: "OneOfAKind" },
+    ]
 
     const handleDebouncedChange = useCallback(
         debounce((updatedFilters) => {
@@ -21,6 +30,12 @@ const ElixirFilter = ({ filters, onChange, onReset }) => {
     );
 
     const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setInputValues((prev) => ({ ...prev, [name]: value }));
+        handleDebouncedChange({ ...inputValues, [name]: value });
+    };
+
+    const handleSelectChange = (e) => {
         const { name, value } = e.target;
         setInputValues((prev) => ({ ...prev, [name]: value }));
         handleDebouncedChange({ ...inputValues, [name]: value });
@@ -43,6 +58,20 @@ const ElixirFilter = ({ filters, onChange, onReset }) => {
                         placeholder={field.placeholder}
                     />
                 ))}
+                <div className="flex flex-col">
+                    <select
+                        name="difficulty"
+                        value={inputValues.difficulty || ""}
+                        onChange={handleSelectChange}
+                        className="p-3 rounded border border-gray-600 bg-transparent text-black"
+                    >
+                        {difficulty.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
+                </div>
             </div>
             <button
                 onClick={handleReset}
