@@ -8,17 +8,16 @@ const ElixirTable = ({ elixirs }) => {
             <thead>
                 <tr>
                     <th className="border border-gray-300 px-2 py-1">Name</th>
-                    <th className="border border-gray-300 px-2 py-1">Difficulty</th>
                     <th className="border border-gray-300 px-2 py-1">Ingredients</th>
                     <th className="border border-gray-300 px-2 py-1">Inventors</th>
                     <th className="border border-gray-300 px-2 py-1">Manufacturer</th>
+                    <th className="border border-gray-300 px-2 py-1">Difficulty</th>
                 </tr>
             </thead>
             <tbody>
                 {elixirs.map((elixir) => (
                     <tr key={elixir.id}>
                         <td className="border border-gray-300 px-2 py-1">{elixir.name}</td>
-                        <td className="border border-gray-300 px-2 py-1">{elixir.difficulty || "-"}</td>
                         <td className="border border-gray-300 px-2 py-1">
                             {elixir.ingredients.map((ingredient) => ingredient.name).join(", ") || "-"}
                         </td>
@@ -28,6 +27,7 @@ const ElixirTable = ({ elixirs }) => {
                                 : "-"}
                         </td>
                         <td className="border border-gray-300 px-2 py-1">{elixir.manufacturer || "-"}</td>
+                        <td className="border border-gray-300 px-2 py-1">{elixir.difficulty || "-"}</td>
                     </tr>
                 ))}
             </tbody>
